@@ -33,6 +33,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         userName: user,
         stack: stackAsString,
       };
+      console.log(log);
       this.serverlogService.log(log).subscribe({
         complete: () => {
           console.log('ErrorLog on serverLog');
