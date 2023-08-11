@@ -1,0 +1,27 @@
+<div *ngIf="comments$ | async as comments">
+  <ul class="list-unstyled comment-list">
+    <li *ngFor="let comment of comments">
+      <a class="text-dark font-weight-bold mr-1" [routerLink]="['/user', comment.userName]">
+        {{ comment.userName }}
+      </a>
+      <em>
+        {{ comment.date | date:'dd-MM-yyyy HH:mm' }}
+      </em>
+      <p class="break-word mb-2">
+        {{ comment.text }}
+      </p>
+    </li>
+  </ul>
+  <div class="mt-4">
+    <form [formGroup]="formGroup" (submit)="save()">
+      <div class="input-group">
+        <textarea class="form-control" formControlName="comment"></textarea>
+      </div>
+      <enigma-vmessage text="Tamanho máximo para comentário é 300 caracteres"
+        *ngIf="formGroup.get('comment')?.errors?.['maxlength']"></enigma-vmessage>
+      <div class=" pt-2 float-right">
+        <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary pull-left">Comentar</button>
+      </div>
+    </form>
+  </div>
+  <div>
