@@ -11,10 +11,11 @@ import { LoadingService } from './loading.service';
 export class LoadingComponent implements OnInit {
   loading$!: Observable<string>;
 
-  constructor(private loadingService: LoadingService){}
+  constructor(private loadingService: LoadingService) {}
 
   ngOnInit(): void {
-      this.loading$ = this.loadingService.getLoading()
-      .pipe(map(loadingType => loadingType.valueOf()))
+    this.loading$ = this.loadingService
+      .getLoading()
+      .pipe(map((loadingType) => loadingType.valueOf()));
   }
 }

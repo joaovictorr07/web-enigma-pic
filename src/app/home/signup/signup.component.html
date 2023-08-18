@@ -2,7 +2,7 @@
 
 <form #form="ngForm" [formGroup]="signupForm" class="form mt-4" (submit)="signUp()">
   <div class="form-group">
-    <input #inputEmail formControlName="email" placeholder="email" class="form-control" autofocus>
+    <input id="inputEmail" formControlName="email" placeholder="email" class="form-control" autofocus>
     <enigma-vmessage *ngIf="signupForm.get('email')?.errors?.['required'] && form.submitted" text="Email é obrigatório">
     </enigma-vmessage>
     <enigma-vmessage *ngIf="signupForm.get('email')?.errors?.['email']  && form.submitted"
@@ -63,9 +63,8 @@
     <enigma-vmessage *ngIf="signupForm.errors?.['userNamePassword']  && form.submitted"
       text="Nome de usuário e senha precisam ser diferentes">
     </enigma-vmessage>
-    <enigma-vmessage *ngIf="signupForm.errors?.['confirmPassword']  && form.submitted"
-    text="Senhas são diferentes">
-  </enigma-vmessage>
+    <enigma-vmessage *ngIf="signupForm.errors?.['confirmPassword']  && form.submitted" text="Senhas são diferentes">
+    </enigma-vmessage>
   </div>
 
   <button type="submit" class="btn btn-primary btn-block">Registrar</button>

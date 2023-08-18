@@ -1,16 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'enigma-load-button',
   templateUrl: './load-button.component.html',
-  styleUrls: ['./load-button.component.css']
 })
-export class LoadButtonComponent implements OnInit {
-
-  @Input()hasMore: boolean = false;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class LoadButtonComponent {
+  @Input() hasMore: boolean = false;
+  constructor() {}
 }

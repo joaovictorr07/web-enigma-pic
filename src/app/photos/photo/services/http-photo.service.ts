@@ -1,30 +1,30 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PhotoModel } from './models/photo.model';
-import { UploadPhotoModel } from './models/upload-photo.model';
+import { PhotoModel } from '../models/photo.model';
+import { UploadPhotoModel } from '../models/upload-photo.model';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
-import { PhotoCommentModel } from './models/photo-comment.model';
-import { AddPhotoCommentModel } from './models/add-photo-comment.model';
+import { PhotoCommentModel } from '../models/photo-comment.model';
+import { AddPhotoCommentModel } from '../models/add-photo-comment.model';
 import { environment } from 'src/environments/environment';
 
 const API = environment.apiUrl;
 
 @Injectable({ providedIn: 'root' })
-export class PhotoService {
+export class HttpPhotoService {
   constructor(private http: HttpClient) {}
 
-  listFromUser(userName: string) {
+  public listFromUser(userName: string): Observable<PhotoModel[]> {
     return this.http.get<PhotoModel[]>(API + '/' + userName + '/photos');
   }
 
-  listFromUserPaginated(userName: string, page: number) {
+  public listFromUserPaginated(userName: string, page: number): Observable<PhotoModel[]> {
     const parametros = new HttpParams().append('page', page.toString());
     return this.http.get<PhotoModel[]>(API + '/' + userName + '/photos', {
       params: parametros,
     });
   }
 
-  upload(uploadPhoto: UploadPhotoModel) {
+  public upload(uploadPhoto: UploadPhotoModel): Observable<any> {
     const formData = new FormData();
     formData.append('description', uploadPhoto.description);
     formData.append(
@@ -38,30 +38,30 @@ export class PhotoService {
     });
   }
 
-  findById(photoId: number): Observable<PhotoModel> {
+  public findById(photoId: number): Observable<PhotoModel> {
     return this.http.get<PhotoModel>(API + '/photos/' + photoId);
   }
 
-  getComments(photoId: number): Observable<PhotoCommentModel[]> {
+  public getComments(photoId: number): Observable<PhotoCommentModel[]> {
     return this.http.get<PhotoCommentModel[]>(
       API + '/photos/' + photoId + '/comments'
     );
   }
 
-  addComment(comment: AddPhotoCommentModel) {
+  public addComment(comment: AddPhotoCommentModel): Observable<any> {
     return this.http.post(API + '/photos/' + comment.photoId + '/comments', {
       commentText: comment.commentText,
     });
   }
 
-  removePhoto(photoId: number) {
+  public removePhoto(photoId: number): Observable<any> {
     return this.http.delete(API + '/photos/' + photoId);
   }
 
-  like(photoId: number) {
+  public like(photoId: number): Observable<boolean> {
     return this.http
       .post(API + '/photos/' + photoId + '/like', {}, { observe: 'response' })
-      .pipe(map((res) => true))
+      .pipe(map((_res) => true))
       .pipe(
         catchError((err) => {
           return err.status == '304' ? of(false) : throwError(() => err);

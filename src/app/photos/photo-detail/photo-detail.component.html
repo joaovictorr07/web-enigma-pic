@@ -1,19 +1,19 @@
-<div class="row bg-white border" *ngIf="photo$ | async as photo">
+<div class="row bg-white border" *ngIf="selectedPhoto">
   <div class="col-lg-8">
-    <enigma-photo [url]="photo.url" [description]="photo.description"></enigma-photo>
+    <enigma-photo [url]="selectedPhoto.url" [description]="selectedPhoto.description"></enigma-photo>
   </div>
 
   <div class="col-lg-4 p-4">
     <small>
-      <p class="text-left break-word">{{photo.description}}</p>
+      <p class="text-left break-word">{{selectedPhoto.description}}</p>
       <div class="text-left mb-4">
-        <i (click)="like(photo)" class="fa fa-heart-o fa-2x mr-2 pull-left" showIfLogged></i> {{ photo.likes }}
-        <i class="fa fa-comment-o fa-2x mr-2 ml-2"></i>{{ photo.comments }}
-        <i photoOwnerOnly [ownedPhoto]="photo" (click)="removePhoto()" class="fa fa-trash-o fa-2x pull-right"></i>
+        <i (click)="like(selectedPhoto)" class="fa fa-heart-o fa-2x mr-2 pull-left" showIfLogged></i> {{ selectedPhoto.likes }}
+        <i class="fa fa-comment-o fa-2x mr-2 ml-2"></i>{{ selectedPhoto.comments }}
+        <i photoOwnerOnly [ownedPhoto]="selectedPhoto" (click)="removePhoto()" class="fa fa-trash-o fa-2x pull-right"></i>
       </div>
       <hr>
     </small>
-    <enigma-photo-detail-comments *ngIf="photo.allowComments; else warnning" [photoId]="photoId">
+    <enigma-photo-detail-comments *ngIf="selectedPhoto.allowComments; else warnning" [photoId]="selectedPhoto.id">
     </enigma-photo-detail-comments>
     <ng-template #warnning>
       <p>Usuário desabilitou comentários para essa foto</p>

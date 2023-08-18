@@ -1,10 +1,9 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'enigma-vmessage',
-  templateUrl: './vmessage.component.html'
+  templateUrl: './vmessage.component.html',
 })
 export class VMessageComponent {
-
-  @Input()text = '';
+  @Input() text = '';
 }

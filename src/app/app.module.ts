@@ -7,13 +7,8 @@ import { CoreModule } from './core/core.module';
 import { ErrorsModule } from './errors/errors.module';
 import { PhotosModule } from './photos/photos.module';
 
-
-
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     PhotosModule,
@@ -22,6 +17,6 @@ import { PhotosModule } from './photos/photos.module';
     AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

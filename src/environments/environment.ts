@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
   serverLogUrl: 'http://localhost:7000/',
+  cloudUrl: 'http://localhost:3000/imgs/'
 };
 
 /*

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { NewUserModel } from './new-user.model';
+import { NewUserModel } from '../models/new-user.model';
 import { environment } from 'src/environments/environment';
 
 const API = environment.apiUrl;
 @Injectable()
-export class SignUpService {
+export class HttpSignUpService {
 
   constructor(private http: HttpClient){}
 

@@ -4,7 +4,7 @@ import { filter, Subscription, tap } from 'rxjs';
 import { ToastNotificationService } from 'src/app/shared/components/toast-notification/toast-notification.service';
 
 import { PlatformDetectorService } from '../../core/plataform/platform-detector.service';
-import { SiginService } from './sigin.service';
+import { SiginService } from './services/sigin.service';
 
 @Component({
   templateUrl: './sigin.component.html',
@@ -51,7 +51,7 @@ export class SigInComponent implements OnInit, OnDestroy {
 
   public login(): void {
     if (this.loginForm.invalid) {
-      this.messageService.warning('Verifique os dados e tente novamente');
+      this.messageService.warningMessage('Verifique os dados e tente novamente');
       return;
     }
     const userName = this.loginForm.get('userName')?.value;

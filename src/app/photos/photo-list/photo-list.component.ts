@@ -1,47 +1,69 @@
-import { PhotoService } from './../photo/photo.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription, tap } from 'rxjs';
 
 import { PhotoModel } from '../photo/models/photo.model';
-import { Subscription } from 'rxjs';
-
+import { PhotoService } from '../photo/services/photo.service';
 
 @Component({
   selector: 'app-photo-list',
   templateUrl: './photo-list.component.html',
-  styleUrls: ['./photo-list.component.css']
 })
 export class PhotoListComponent implements OnInit, OnDestroy {
-
-
   photos: PhotoModel[] = [];
   filter: string = '';
   hasMore: boolean = true;
   currentPage: number = 1;
   userName: string = '';
-  Subscription!: Subscription;
+  Subscription: Subscription[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private photoService : PhotoService,
-    ) { }
+    private photoService: PhotoService
+  ) {}
 
   ngOnInit(): void {
-    this.Subscription = this.activatedRoute.params.subscribe(params => {
-      this.userName = params['userName'];
-      this.photos = this.activatedRoute.snapshot.data['photos'];
-    });
+    this.initListners();
   }
-  load (){
-    this.photoService
-      .listFromUserPaginated(this.userName, ++this.currentPage)
-      .subscribe(photos => {
-        this.filter = '';
-        this.photos = this.photos.concat(photos);
-        if (!photos.length) this.hasMore = false;
-      })
+  private initListners(): void {
+    let initPhotosSubscriptions = this.activatedRoute.params.subscribe(
+      (params) => {
+        this.userName = params['userName'];
+        this.photos = this.activatedRoute.snapshot.data['photos'];
+      }
+    );
+    let listPhotosPaginatedSubscription = this.photoService
+      .getListPhotos()
+      .pipe(
+        tap((photos) => {
+          this.filter = '';
+          this.photos = this.photos.concat(photos);
+        })
+      )
+      .subscribe();
+    let hasMorePhotoSubscription = this.photoService
+      .getHasMorePhotosInUser()
+      .pipe(
+        tap((hasMore) => {
+          this.hasMore = hasMore;
+        })
+      )
+      .subscribe();
+    this.Subscription.push(
+      initPhotosSubscriptions,
+      listPhotosPaginatedSubscription,
+      hasMorePhotoSubscription
+    );
+  }
+
+  public load(): void {
+    this.photoService.setPhotosListFromUserPaginated(
+      this.userName,
+      ++this.currentPage
+    );
   }
 
   ngOnDestroy(): void {
-    this.Subscription.unsubscribe();
+    this.Subscription.forEach((s) => s.unsubscribe());
   }
 }

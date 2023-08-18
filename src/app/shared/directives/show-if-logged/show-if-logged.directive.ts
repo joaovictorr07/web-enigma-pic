@@ -8,6 +8,7 @@ import { UserService } from 'src/app/core/user/user.service';
 export class ShowIfLoggedDirective implements OnInit, OnDestroy {
   currentDisplay!: string;
   private subcription!: Subscription;
+
   constructor(
     private element: ElementRef<any>,
     private renderer: Renderer2,
@@ -42,6 +43,6 @@ export class ShowIfLoggedDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subcription.unsubscribe();
+    this.subcription.unsubscribe();
   }
 }

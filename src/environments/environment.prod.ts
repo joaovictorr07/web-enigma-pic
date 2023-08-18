@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://suaapientraaqui',
-  serverLogUrl: 'http://suaapiaqui/',
+  apiUrl: 'https://api-enigma-pic.onrender.com',
+  serverLogUrl: 'http://not-defined/',
+  cloudUrl: 'https://api-enigma-pic.onrender.com/imgs/'
 };

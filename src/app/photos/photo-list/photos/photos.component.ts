@@ -4,10 +4,8 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 @Component({
   selector: 'enigma-photos',
   templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnChanges {
-
   @Input() photos: PhotoModel[] = [];
   rows: any [] = [];
 
@@ -18,7 +16,7 @@ export class PhotosComponent implements OnChanges {
       this.rows = this.groupColumns(this.photos);
   }
 
-  groupColumns(photos: PhotoModel[]) {
+  private groupColumns(photos: PhotoModel[]): PhotoModel[][] {
     const newRows = [];
 
     for (let index = 0; index < photos.length; index += 3){

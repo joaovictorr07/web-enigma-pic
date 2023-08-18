@@ -1,12 +1,8 @@
-<enigma-search
-  (onTyping)="filter = $any($event)" [value]="filter">
+<enigma-search (onTyping)="filter = $any($event)" [value]="filter">
 </enigma-search>
 
-<enigma-photos
-  [photos]="photos | filterByDescription: filter">
+<enigma-photos [photos]="photos | filterByDescription: filter">
 </enigma-photos>
 
-<enigma-load-button
-  (click)="load()"
-  [hasMore]="hasMore">
+<enigma-load-button (click)="load()" [hasMore]="hasMore">
 </enigma-load-button>

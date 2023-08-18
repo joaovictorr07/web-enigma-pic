@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export const UserNamePasswordValidator: ValidatorFn = (
   formGroup: AbstractControl

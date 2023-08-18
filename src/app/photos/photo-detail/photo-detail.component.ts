@@ -1,64 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { filter, Observable, Subscription, tap } from 'rxjs';
 
 import { PhotoModel } from '../photo/models/photo.model';
-import { PhotoService } from '../photo/photo.service';
-import { ToastNotificationService } from 'src/app/shared/components/toast-notification/toast-notification.service';
-import { UserService } from 'src/app/core/user/user.service';
+import { PhotoService } from '../photo/services/photo.service';
 
 @Component({
   templateUrl: './photo-detail.component.html',
 })
-export class PhotoDetailComponent implements OnInit {
-  photo$!: Observable<PhotoModel>;
-  photoId!: number;
+export class PhotoDetailComponent implements OnInit, OnDestroy {
+  photo$!: Observable<PhotoModel | undefined>;
+  selectedPhoto: PhotoModel | undefined;
+  private photoSubscription!: Subscription;
   constructor(
     private route: ActivatedRoute,
-    private photoService: PhotoService,
-    private router: Router,
-    private messageService: ToastNotificationService,
-    private userService: UserService
-  ) {}
+    private photoService: PhotoService
+  ) {
+    this.photo$ = this.photoService.getSelectedPhoto();
+    this.initListners();
+  }
+
+  private initListners(): void {
+    this.photoSubscription = this.photo$
+      .pipe(
+        filter((value) => value != undefined),
+        tap((photo) => {
+          this.selectedPhoto = photo;
+        })
+      )
+      .subscribe();
+  }
 
   ngOnInit(): void {
-    this.photoId = this.route.snapshot.params['photoId'];
-    this.photo$ = this.photoService.findById(this.photoId);
-    this.photo$.subscribe({
-      error: () => {
-        this.router.navigate(['not-found']);
-      },
-    });
+    let photoId = this.route.snapshot.params['photoId'];
+    this.photoService.setSelectedPhoto(photoId);
   }
 
   public removePhoto(): void {
-    this.photoService.removePhoto(this.photoId).subscribe({
-      complete: () => {
-        this.messageService.sucess('Foto excluída com sucesso');
-        this.router.navigate(['/user', this.userService.getUserName()], { replaceUrl: true});
-      },
-      error: (err) => {
-        console.log(err);
-        this.messageService.warning('Erro na exclusão da foto');
-      },
-    });
+    if (this.selectedPhoto)
+      this.photoService.deletePhoto(this.selectedPhoto?.id);
   }
 
   public like(photo: PhotoModel): void {
-    this.photoService
-      .like(photo.id)
-      .pipe(
-        map((res) => {
-          if (res) {
-            this.photo$ = this.photoService.findById(photo.id);
-          }
-        })
-      )
-      .subscribe({
-        error: (err) => {
-          console.log(err);
-          this.messageService.warning('Erro ao curtir a foto');
-        },
-      });
+    this.photoService.like(photo);
+  }
+
+  ngOnDestroy(): void {
+    this.photoService.setSelectedPhoto(undefined);
+    this.photoSubscription.unsubscribe();
   }
 }

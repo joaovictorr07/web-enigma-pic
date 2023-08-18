@@ -13,6 +13,7 @@ export class ToastNotificationComponent implements OnDestroy {
   @Input() timeout: number = 3000;
   messages: MessageModel[] = [];
   private messageSubscriptions: Subscription;
+
   constructor(private toastNotificationService: ToastNotificationService) {
     this.messageSubscriptions = this.toastNotificationService
       .getAlert()
@@ -40,7 +41,6 @@ export class ToastNotificationComponent implements OnDestroy {
   }
 
   public getMessageClass(message: MessageModel): string {
-    debugger;
     if (!message) {
       return '';
     }

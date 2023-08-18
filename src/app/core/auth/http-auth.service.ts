@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { UserService } from './../user/user.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class HttpAuthService {
 
   constructor(private http: HttpClient,
     private userService: UserService) { }
