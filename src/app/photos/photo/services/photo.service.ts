@@ -48,6 +48,7 @@ export class PhotoService {
         error: (err) => {
           console.log(err);
           this.messageService.warningMessage('Erro no upload da foto');
+          this.setPercentUploadValue(undefined);
         },
       });
   }
