@@ -8,8 +8,8 @@ import { MenuModule } from '../shared/components/menu/menu.module';
 import { ToastNotificationModule } from '../shared/components/toast-notification/toast-notification.module';
 import { ShowIfLoggedModule } from '../shared/directives/show-if-logged/show-if-logged.module';
 import { RequestInterceptor } from './auth/request.interceptor';
-import { FooterComponent } from './footer/footer.componet';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.componet';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],

@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+import { AddPhotoCommentModel } from '../models/add-photo-comment.model';
+import { PhotoCommentModel } from '../models/photo-comment.model';
 import { PhotoModel } from '../models/photo.model';
 import { UploadPhotoModel } from '../models/upload-photo.model';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
-import { PhotoCommentModel } from '../models/photo-comment.model';
-import { AddPhotoCommentModel } from '../models/add-photo-comment.model';
-import { environment } from 'src/environments/environment';
 
 const API = environment.apiUrl;
 

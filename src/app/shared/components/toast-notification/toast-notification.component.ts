@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { ToastNotificationService } from './toast-notification.service';
-import { ToastNotificationModel as MessageModel } from './toast-notification';
-import { Observable, Subscription, filter, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
+
 import { MessageTypeEnum } from './enum/alert-type.enum';
+import { ToastNotificationModel as MessageModel } from './toast-notification';
+import { ToastNotificationService } from './toast-notification.service';
 
 @Component({
   selector: 'enigma-toast-notification',

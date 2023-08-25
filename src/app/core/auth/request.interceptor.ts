@@ -7,6 +7,7 @@ import { TokenService } from '../token/token.service';
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   constructor(private tokenService: TokenService){}
+
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(this.tokenService.hasToken()) {
       const token: string = this.tokenService.getToken()!;

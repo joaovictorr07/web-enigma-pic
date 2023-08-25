@@ -5,11 +5,11 @@ import { AuthGuard } from './core/auth/auth.guard';
 import { LoginGuard } from './core/auth/login.guard';
 import { GlobalErrorComponent } from './errors/global-error/global-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home/components/home/home.component';
 import { PhotoDetailComponent } from './photos/photo-detail/photo-detail.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
-import { PhotoListComponent } from './photos/photo-list/photo-list.component';
-import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
+import { PhotoListComponent } from './photos/photo-list/components/photo-list/photo-list.component';
+import { PhotoListResolver } from './photos/photo-list/resolvers/photo-list.resolver';
 
 const routes: Routes = [
   {

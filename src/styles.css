@@ -1,3 +1,8 @@
+@font-face {
+  font-family: bauhaus;
+  src: url("assets/fonts/bauhaus-93.ttf") format("truetype");
+}
+
 .float-right {
   float: right;
 }
@@ -5,4 +10,3 @@
 .break-word {
   word-break: break-all;
 }
-

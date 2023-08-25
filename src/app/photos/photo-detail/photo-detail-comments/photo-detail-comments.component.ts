@@ -15,6 +15,7 @@ export class PhotoDetailCommentsComponent implements OnInit {
   @Input() photoId!: number;
   comments$!: Observable<PhotoCommentModel[] | undefined>;
   formGroup!: FormGroup;
+  visibledValidationMessage = false;
   constructor(
     private formBuilder: FormBuilder,
     private photoService: PhotoService
@@ -33,6 +34,10 @@ export class PhotoDetailCommentsComponent implements OnInit {
   }
 
   public save(): void {
+    if(this.formGroup.invalid) {
+      this.visibledValidationMessage = true;
+      return;
+    }
     let comment: AddPhotoCommentModel = {
       photoId: this.photoId,
       commentText: this.formGroup.controls['comment'].value,

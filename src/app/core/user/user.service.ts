@@ -9,15 +9,14 @@ import { UserModel } from './user.model';
 export class UserService {
   private userSubject = new BehaviorSubject<UserModel | null>(null);
   private userName: string | undefined;
+
   constructor(private tokenService: TokenService) {
     this.tokenService.hasToken() && this.decodeAndNotify();
   }
+
   public setToken(token: string): void {
     this.tokenService.setToken(token);
     this.decodeAndNotify();
-  }
-  public getUser(): Observable<UserModel | null> {
-    return this.userSubject.asObservable();
   }
 
   private decodeAndNotify(): void {
@@ -38,5 +37,9 @@ export class UserService {
 
   public getUserName(): string | undefined {
     return this.userName;
+  }
+
+  public getUser(): Observable<UserModel | null> {
+    return this.userSubject.asObservable();
   }
 }

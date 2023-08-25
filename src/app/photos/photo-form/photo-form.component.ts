@@ -4,20 +4,23 @@ import { Observable } from 'rxjs';
 
 import { UploadPhotoModel } from '../photo/models/upload-photo.model';
 import { PhotoService } from '../photo/services/photo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'enigma-photo-form',
   templateUrl: './photo-form.component.html',
-  styleUrls: ['./photo-form.component.css'],
 })
 export class PhotoFormComponent implements OnInit {
   formGroup!: FormGroup;
   file!: File;
   previewImage!: string;
   percentUploadValue$: Observable<number | undefined>
+  visibledValidationMessage = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private photoService: PhotoService,
+    private routerService: Router
   ) {
     this.percentUploadValue$ = this.photoService.getPercentUploadValue();
   }
@@ -43,7 +46,7 @@ export class PhotoFormComponent implements OnInit {
     reader.readAsDataURL(this.file);
   }
 
-  public removePhotoSelected(): void {
+  private removePhotoSelected(): void {
     this.previewImage = '';
     this.formGroup.patchValue({
       file: null,
@@ -51,11 +54,23 @@ export class PhotoFormComponent implements OnInit {
   }
 
   public upload(): void {
+    if(this.formGroup.invalid) {
+      this.visibledValidationMessage = true;
+      return;
+    }
     let dadosUpload: UploadPhotoModel = {
       description: this.formGroup.controls['description'].value,
       allowComments: this.formGroup.controls['allowComments'].value,
       file: this.file,
     };
     this.photoService.uploadPhoto(dadosUpload);
+  }
+
+  public cancelar(): void {
+    if(this.formGroup.controls['file'].value != null) {
+      this.removePhotoSelected();
+    } else {
+      this.routerService.navigate(['']);
+    }
   }
 }

@@ -9,6 +9,7 @@ export class LoginGuard implements CanActivate{
 
   constructor(private userService: UserService,
     private router: Router){}
+
   canActivate(_route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot): boolean | Observable<boolean>| Promise<boolean> {
       if(this.userService.isLogged()){

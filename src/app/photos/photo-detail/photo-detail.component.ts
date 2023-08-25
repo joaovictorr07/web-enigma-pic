@@ -12,6 +12,7 @@ export class PhotoDetailComponent implements OnInit, OnDestroy {
   photo$!: Observable<PhotoModel | undefined>;
   selectedPhoto: PhotoModel | undefined;
   private photoSubscription!: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private photoService: PhotoService

@@ -3,14 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { DefaultButtonModule } from '../shared/components/buttons/default-button/default-button.module';
 import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './components/home/home.component';
+import { SiginService } from './components/sigin/services/sigin.service';
+import { SigInComponent } from './components/sigin/sigin.component';
+import { HttpSignUpService } from './components/signup/services/http-signup.service';
+import { SignupService } from './components/signup/services/signup.service';
+import { SignUpComponent } from './components/signup/signup.component';
 import { HomeRoutingModule } from './home.routing.module';
-import { SigInComponent } from './sigin/sigin.component';
-import { SiginService } from './sigin/services/sigin.service';
-import { HttpSignUpService } from './signup/services/http-signup.service';
-import { SignUpComponent } from './signup/signup.component';
-import { SignupService } from './signup/services/signup.service';
 
 @NgModule({
   declarations: [SigInComponent, SignUpComponent, HomeComponent],
@@ -21,6 +22,7 @@ import { SignupService } from './signup/services/signup.service';
     RouterModule,
     FormsModule,
     HomeRoutingModule,
+    DefaultButtonModule,
   ],
   providers: [SiginService, SignupService, HttpSignUpService],
 })

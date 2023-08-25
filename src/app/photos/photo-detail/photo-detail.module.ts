@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
-import { PhotoDetailComponent } from './photo-detail.component';
 import { CommonModule } from '@angular/common';
-import { PhotoModule } from '../photo/photo.module';
-import { PhotoDetailCommentsComponent } from './photo-detail-comments/photo-detail-comments.component';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HoverButtonModule } from 'src/app/shared/components/buttons/hover-button/hover-button.module';
 import { VMessageModule } from 'src/app/shared/components/vmessage/vmessage.module';
-import { PhotoOwnerOnlyDirective } from './directives/photo-owner-only/photo-owner.only.directive';
 import { ShowIfLoggedModule } from 'src/app/shared/directives/show-if-logged/show-if-logged.module';
+
+import { PhotoModule } from '../photo/photo.module';
+import { PhotoOwnerOnlyDirective } from './directives/photo-owner-only/photo-owner.only.directive';
+import { PhotoDetailCommentsComponent } from './photo-detail-comments/photo-detail-comments.component';
+import { PhotoDetailComponent } from './photo-detail.component';
 
 @NgModule({
   declarations: [PhotoDetailComponent, PhotoDetailCommentsComponent, PhotoOwnerOnlyDirective],
@@ -18,7 +20,8 @@ import { ShowIfLoggedModule } from 'src/app/shared/directives/show-if-logged/sho
     FormsModule,
     ReactiveFormsModule,
     VMessageModule,
-    ShowIfLoggedModule
+    ShowIfLoggedModule,
+    HoverButtonModule,
   ],
   exports: [PhotoDetailComponent, PhotoDetailCommentsComponent],
 })

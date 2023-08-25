@@ -1,0 +1,34 @@
+<header class="fixed-top">
+  <nav class="navbar navbar-light bg-white">
+    <a class="navbar-brand gng-header">
+      <i showIfLogged tabindex="0" (keyup.space)="menu.toggle()" (click)="menu.toggle()" class="fa fa-bars mr-2"></i>
+      GNGPIC</a>
+    <enigma-menu #menu>
+      <ul class="list-unstyled">
+        <li>
+          <a showIfLogged [routerLink]="['/user', userLogged?.name]">Linha do tempo</a>
+        </li>
+        <li>
+          <a showIfLogged [routerLink]="['p', 'add']">Upload</a>
+        </li>
+      </ul>
+    </enigma-menu>
+    <div *ngIf="userLogged; else login">
+      <i class="fa fa-user-circle mr-1"></i>
+      <a class="mr-1">{{ userLogged.name }}</a>
+      <span class="navbar-text">
+        <a class="logout-button" (click)="logout()">(Logout)</a>
+      </span>
+    </div>
+
+    <ng-template #login>
+      <span class="navbar-text">
+        <a [routerLink]="['']">Por favor, realize o login!</a>
+      </span>
+    </ng-template>
+  </nav>
+  <div class="fixed-top">
+    <enigma-loading></enigma-loading>
+    <enigma-toast-notification></enigma-toast-notification>
+  </div>
+</header>

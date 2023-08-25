@@ -17,10 +17,12 @@
       <div class="input-group">
         <textarea class="form-control" formControlName="comment"></textarea>
       </div>
-      <enigma-vmessage text="Tamanho máximo para comentário é 300 caracteres"
-        *ngIf="formGroup.get('comment')?.errors?.['maxlength']"></enigma-vmessage>
+      <enigma-vmessage [visible]="visibledValidationMessage" [control]="formGroup.controls['comment']">
+      </enigma-vmessage>
       <div class=" pt-2 float-right">
-        <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary pull-left">Comentar</button>
+        <enigma-hover-button
+        [disabled]="formGroup.invalid"
+        ngButtonClass="primary pull-left" ngButtonType="submit" label="Comentar" fontAwesomeIcon="plus"></enigma-hover-button>
       </div>
     </form>
   </div>

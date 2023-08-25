@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 const URL_API_LOG = environment.serverLogUrl;
 
 @Injectable({ providedIn: 'root' })
-export class ServerLogService {
+export class HttpServerLogService {
   constructor(private http: HttpClient) {}
   public log(log: ServerLogModel): Observable<any> {
     return this.http.post(URL_API_LOG + 'infra/log', log);

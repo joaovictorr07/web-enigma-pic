@@ -1,0 +1,43 @@
+<h4 class="text-center"> Registre-se para conhecer um enigmático mundo novo!</h4>
+
+<form #form="ngForm" [formGroup]="signupForm" class="form mt-4" (submit)="signUp()">
+  <div class="form-group">
+    <input id="inputEmail" formControlName="email" placeholder="Email" class="form-control" autofocus>
+    <enigma-vmessage [visible]="visibledValidationMessage" [control]="signupForm.controls['email']">
+    </enigma-vmessage>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="fullName" placeholder="Nome completo" class="form-control">
+    <enigma-vmessage [visible]="visibledValidationMessage" [control]="signupForm.controls['fullName']">
+    </enigma-vmessage>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="userName" placeholder="Usuário" class="form-control">
+    <enigma-vmessage [visible]="visibledValidationMessage" [control]="signupForm.controls['userName']">
+    </enigma-vmessage>
+    <small *ngIf="signupForm.get('userName')?.valid" class="text-success">Usuário disponível</small>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="password" type="password" placeholder="Senha" class="form-control">
+    <enigma-vmessage [visible]="visibledValidationMessage" [control]="signupForm.controls['password']">
+    </enigma-vmessage>
+    <small class="text-danger d-block mt-2" *ngIf="signupForm.errors?.['userNamePassword']">Nome de usuário e senha
+      precisam ser diferentes
+    </small>
+  </div>
+  <div class="form-group">
+    <input formControlName="confirmPassword" type="password" placeholder="Confirmação de senha" class="form-control">
+    <enigma-vmessage [visible]="visibledValidationMessage" [control]="signupForm.controls['confirmPassword']">
+    </enigma-vmessage>
+    <small class="text-danger d-block mt-2" *ngIf="signupForm.errors?.['confirmPassword']">
+      Senhas são diferentes
+    </small>
+  </div>
+
+  <enigma-default-button ngButtonType="submit" label="Registrar"></enigma-default-button>
+
+  <p>Já é usuário?<a [routerLink]="['']"> Faça login agora!</a></p>
+</form>

@@ -7,9 +7,7 @@ import { ToastNotificationModel } from './toast-notification';
 
 @Injectable({ providedIn: 'root' })
 export class ToastNotificationService {
-  private messageSubject = new BehaviorSubject<
-    ToastNotificationModel | undefined
-  >(undefined);
+  private messageSubject = new BehaviorSubject<ToastNotificationModel | undefined>(undefined);
   private keepAfterRouteChange = true;
 
   constructor(private router: Router) {

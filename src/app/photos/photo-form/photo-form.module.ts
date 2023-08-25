@@ -6,6 +6,7 @@ import { VMessageModule } from 'src/app/shared/components/vmessage/vmessage.modu
 import { RouterModule } from '@angular/router';
 import { PhotoModule } from '../photo/photo.module';
 import { ImmediateClickModule } from 'src/app/shared/directives/immediate-click/immediate-click.module';
+import { HoverButtonModule } from 'src/app/shared/components/buttons/hover-button/hover-button.module';
 
 @NgModule({
   declarations:[
@@ -18,7 +19,8 @@ import { ImmediateClickModule } from 'src/app/shared/directives/immediate-click/
     VMessageModule,
     RouterModule,
     PhotoModule,
-    ImmediateClickModule
+    ImmediateClickModule,
+    HoverButtonModule,
   ]
 })
 export class PhotoFormModule{}

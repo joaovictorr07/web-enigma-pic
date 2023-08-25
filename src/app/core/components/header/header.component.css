@@ -1,0 +1,12 @@
+li:hover {
+  cursor: pointer;
+}
+
+.logout-button {
+  cursor: pointer;
+}
+
+.gng-header {
+  font-family: "bauhaus", sans-serif;
+  font-size: large;
+}

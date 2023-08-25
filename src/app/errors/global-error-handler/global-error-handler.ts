@@ -6,13 +6,13 @@ import { environment } from 'src/environments/environment';
 import * as StackTrace from 'stacktrace-js';
 
 import { ServerLogModel } from './models/server-log.model';
-import { ServerLogService } from './server-log.service';
+import { HttpServerLogService } from './server-log.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(
     private injector: Injector,
-    private serverlogService: ServerLogService
+    private httpServerlogService: HttpServerLogService
   ) {}
 
   handleError(error: any): void {
@@ -34,13 +34,13 @@ export class GlobalErrorHandler implements ErrorHandler {
         stack: stackAsString,
       };
       console.log(log);
-      this.serverlogService.log(log).subscribe({
+      this.httpServerlogService.log(log).subscribe({
         complete: () => {
           console.log('ErrorLog on serverLog');
         },
         error: (err) => {
           console.log(err);
-          console.log('Error on send log to server');
+          console.log('Error on send ErrorLog to serverLog');
         },
       });
     });

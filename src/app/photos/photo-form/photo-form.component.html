@@ -1,25 +1,19 @@
 <div class="container">
   <form [formGroup]="formGroup" class="row" (submit)="upload()">
     <div class="col-md-6 text-center">
-      <div class="form-group" *ngIf="!previewImage; else showPreview">
+      <div class="form-group" [hidden]="previewImage">
         <button immediateClick type="button" (click)="fileInput.click()" class="btn btn-primary">
           <i class="fa fa-image fa-4x align-middle"></i>
         </button>
         <input #fileInput hidden type="file" accept="image/*" formControlName="file" (change)="fileUpload($event)">
-        <enigma-vmessage text="Por favor, selecione uma foto" *ngIf="formGroup.get('file')?.errors?.['required']">
-        </enigma-vmessage>
+        <small *ngIf="formGroup.get('file')?.errors?.['required']" class="text-danger d-block mt-2"> Por favor, selecione uma foto </small>
+
       </div>
-      <ng-template #showPreview>
+      <div *ngIf="previewImage">
         <div class="text-center">
           <enigma-photo [url]="previewImage" preview="title"></enigma-photo>
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <button type="reset" class="btn btn-secondary btn-block btn-light" (click)="removePhotoSelected()">Remover
-              Foto</button>
-          </div>
-        </div>
-      </ng-template>
+      </div>
 
     </div>
 
@@ -27,10 +21,8 @@
       <div class="form-group">
         <textarea class="form-control form-control-sm" placeholder="Descrição da foto"
           formControlName="description"></textarea>
-        <enigma-vmessage text="Informe uma descrição para a foto"
-          *ngIf="formGroup.get('description')?.errors?.['required']"></enigma-vmessage>
-        <enigma-vmessage text="Desricão excedeu limite de 300 caracteres"
-          *ngIf="formGroup.get('description')?.errors?.['maxlength']"></enigma-vmessage>
+        <enigma-vmessage [visible]="visibledValidationMessage" [control]="formGroup.controls['description']">
+        </enigma-vmessage>
       </div>
 
       <div class="form-group">
@@ -43,10 +35,14 @@
         <div class="progress-bar" [style.width.%]="percentValue">{{ percentValue }}%</div>
       </div>
       <ng-template #setUploading>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="formGroup.invalid">
-          Upload
-        </button>
-        <a [routerLink]="['']" class="btn btn-secondary btn-block">Cancelar</a>
+        <div class="d-flex justify-content-end align-items-end">
+          <enigma-hover-button ngButtonType="submit" ngButtonClass="primary" label="Upload" fontAwesomeIcon="upload"
+            [ngStyle]="{'margin-right': '1vw'}">
+          </enigma-hover-button>
+          <enigma-hover-button (onClickEvent)="cancelar()" ngButtonClass="dark" ngButtonType="button" label="Cancelar"
+            fontAwesomeIcon="ban">
+          </enigma-hover-button>
+        </div>
       </ng-template>
 
     </div>
