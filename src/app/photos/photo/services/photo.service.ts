@@ -45,8 +45,7 @@ export class PhotoService {
         })
       )
       .subscribe({
-        error: (err) => {
-          console.log(err);
+        error: (_err) => {
           this.messageService.warningMessage('Erro no upload da foto');
           this.setPercentUploadValue(undefined);
         },
@@ -61,8 +60,7 @@ export class PhotoService {
           replaceUrl: true,
         });
       },
-      error: (err) => {
-        console.log(err);
+      error: (_err) => {
         this.messageService.warningMessage('Erro na exclusão da foto');
       },
     });
@@ -79,8 +77,8 @@ export class PhotoService {
         })
       )
       .subscribe({
-        error: (err) => {
-          console.log(err);
+        error: (_err) => {
+
           this.messageService.warningMessage('Erro ao curtir a foto');
         },
       });
@@ -103,8 +101,8 @@ export class PhotoService {
         })
       )
       .subscribe({
-        error: (err) => {
-          console.log(err);
+        error: (_err) => {
+
         },
       });
   }
@@ -120,8 +118,8 @@ export class PhotoService {
         })
       )
       .subscribe({
-        error: (err) => {
-          console.log(err);
+        error: (_err) => {
+
           this.messageService.warningMessage('Erro ao comentar a foto');
         },
       });
