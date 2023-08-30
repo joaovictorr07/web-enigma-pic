@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { filter, Observable, Subscription, tap } from 'rxjs';
 
 import { AddPhotoCommentModel } from '../../photo/models/add-photo-comment.model';
 import { PhotoCommentModel } from '../../photo/models/photo-comment.model';
@@ -11,16 +11,35 @@ import { PhotoService } from '../../photo/services/photo.service';
   templateUrl: './photo-detail-comments.component.html',
   styleUrls: ['./photo-detail-comments.component.css'],
 })
-export class PhotoDetailCommentsComponent implements OnInit {
+export class PhotoDetailCommentsComponent implements OnInit, OnDestroy {
   @Input() photoId!: number;
   comments$!: Observable<PhotoCommentModel[] | undefined>;
   formGroup!: FormGroup;
+  teste = false;
   visibledValidationMessage = false;
+  comments: PhotoCommentModel[] | undefined = undefined;
+  private subscription!: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     private photoService: PhotoService
   ) {
     this.comments$ = this.photoService.getComments();
+    this.initListner();
+  }
+
+  private initListner(): void {
+    this.subscription = this.comments$
+      .pipe(
+        filter((value) => value != undefined),
+        tap((commentsList) => {
+          if (commentsList?.length == 0) {
+            this.comments = undefined;
+          } else {
+            this.comments = commentsList;
+          }
+        })
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {
@@ -29,12 +48,12 @@ export class PhotoDetailCommentsComponent implements OnInit {
 
   private buildFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      comment: [null, [Validators.maxLength(300)]],
+      comment: [null, [Validators.required, Validators.maxLength(300)]],
     });
   }
 
   public save(): void {
-    if(this.formGroup.invalid) {
+    if (this.formGroup.invalid) {
       this.visibledValidationMessage = true;
       return;
     }
@@ -44,5 +63,9 @@ export class PhotoDetailCommentsComponent implements OnInit {
     };
     this.photoService.addComment(comment);
     this.formGroup.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

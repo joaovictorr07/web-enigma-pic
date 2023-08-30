@@ -2,3 +2,15 @@
   height: 50vh;
   overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+  .comment-list {
+    height: 10vh;
+    overflow-y: auto;
+  }
+
+  .comment-list-min-size-2 {
+    height: 20vh;
+    overflow-y: auto;
+  }
+}

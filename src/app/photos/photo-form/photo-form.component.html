@@ -2,11 +2,12 @@
   <form [formGroup]="formGroup" class="row" (submit)="upload()">
     <div class="col-md-6 text-center">
       <div class="form-group" [hidden]="previewImage">
-        <button immediateClick type="button" (click)="fileInput.click()" class="btn btn-primary">
+        <button accesskey="s" immediateClick type="button" (click)="fileInput.click()" class="btn btn-primary">
           <i class="fa fa-image fa-4x align-middle"></i>
         </button>
         <input #fileInput hidden type="file" accept="image/*" formControlName="file" (change)="fileUpload($event)">
-        <small *ngIf="formGroup.get('file')?.errors?.['required']" class="text-danger d-block mt-2"> Por favor, selecione uma foto </small>
+        <small *ngIf="formGroup.get('file')?.errors?.['required']" class="text-danger d-block mt-2"> Por favor,
+          selecione uma foto </small>
 
       </div>
       <div *ngIf="previewImage">
@@ -14,7 +15,6 @@
           <enigma-photo [url]="previewImage" preview="title"></enigma-photo>
         </div>
       </div>
-
     </div>
 
     <div class="col-md-6">
@@ -36,12 +36,12 @@
       </div>
       <ng-template #setUploading>
         <div class="d-flex justify-content-end align-items-end">
-          <enigma-hover-button ngButtonType="submit" ngButtonClass="primary" label="Upload" fontAwesomeIcon="upload"
-            [ngStyle]="{'margin-right': '1vw'}">
+          <enigma-hover-button accesskey="cancel" (onClickEvent)="cancelar()" ngButtonClass="dark" ngButtonType="button"
+            [label]="cancelOrRemoveLabel" [fontAwesomeIcon]="cancelOrRemoveIcon"  [ngStyle]="{'margin-right': '1vw'}">
           </enigma-hover-button>
-          <enigma-hover-button (onClickEvent)="cancelar()" ngButtonClass="dark" ngButtonType="button" label="Cancelar"
-            fontAwesomeIcon="ban">
-          </enigma-hover-button>
+          <enigma-hover-button accesskey="u" ngButtonType="submit" [disabled]="formGroup.get('file')?.value == null"
+          ngButtonClass="primary" label="Upload" fontAwesomeIcon="upload">
+        </enigma-hover-button>
         </div>
       </ng-template>
 

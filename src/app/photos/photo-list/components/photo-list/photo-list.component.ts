@@ -19,7 +19,9 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private photoService: PhotoService
-  ) {}
+  ) {
+    this.photoService.setHasMorePhotosInUser(true);
+  }
 
   ngOnInit(): void {
     this.initListners();
@@ -28,6 +30,7 @@ export class PhotoListComponent implements OnInit, OnDestroy {
     let initPhotosSubscriptions = this.activatedRoute.params.subscribe(
       (params) => {
         this.userName = params['userName'];
+        this.photos = [];
         this.photos = this.activatedRoute.snapshot.data['photos'];
       }
     );
@@ -63,6 +66,7 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.photoService.clearListPhotos();
     this.Subscription.forEach((s) => s.unsubscribe());
   }
 }

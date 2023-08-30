@@ -25,7 +25,6 @@ export class VMessageComponent {
             this.control.touched ||
             this.visible)
         ) {
-          debugger;
           let messsagedefault =
             this.baseValidacaoService.getValidatorErrorMessageDefault(
               propertyName

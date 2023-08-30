@@ -94,7 +94,7 @@ export class PhotoService {
         map((res) => {
           if (res) {
             this.listPhotosSubject.next(res);
-            if (res.length!) {
+            if (res.length! || res.length == 0) {
               this.setHasMorePhotosInUser(false);
             }
           }
@@ -105,6 +105,10 @@ export class PhotoService {
 
         },
       });
+  }
+
+  public clearListPhotos(): void {
+    this.listPhotosSubject.next([]);
   }
 
   public addComment(comment: AddPhotoCommentModel): void {

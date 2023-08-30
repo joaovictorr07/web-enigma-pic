@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'http://localhost:3030',
   serverLogUrl: 'http://localhost:7000/',
-  cloudUrl: 'http://localhost:3000/imgs/'
+  cloudUrl: 'http://localhost:3030/imgs/'
 };
 
 /*

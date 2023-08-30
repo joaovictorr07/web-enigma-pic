@@ -10,3 +10,8 @@
 .break-word {
   word-break: break-all;
 }
+
+.enigma-default-button {
+  border-radius: 50px !important;
+  border: 2px transparent !important;
+}

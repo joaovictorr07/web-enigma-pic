@@ -4,12 +4,12 @@
       <i showIfLogged tabindex="0" (keyup.space)="menu.toggle()" (click)="menu.toggle()" class="fa fa-bars mr-2"></i>
       GNGPIC</a>
     <enigma-menu #menu>
-      <ul class="list-unstyled">
-        <li>
-          <a showIfLogged [routerLink]="['/user', userLogged?.name]">Linha do tempo</a>
+      <ul class="list-group">
+        <li showIfLogged class="list-group-item" [routerLink]="['/user', userLogged?.name]">
+          <a>Linha do tempo</a>
         </li>
-        <li>
-          <a showIfLogged [routerLink]="['p', 'add']">Upload</a>
+        <li showIfLogged class="list-group-item" [routerLink]="['p', 'add']">
+          <a>Upload</a>
         </li>
       </ul>
     </enigma-menu>

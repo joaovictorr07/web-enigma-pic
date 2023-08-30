@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UploadPhotoModel } from '../photo/models/upload-photo.model';
 import { PhotoService } from '../photo/services/photo.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'enigma-photo-form',
@@ -14,8 +14,10 @@ export class PhotoFormComponent implements OnInit {
   formGroup!: FormGroup;
   file!: File;
   previewImage!: string;
-  percentUploadValue$: Observable<number | undefined>
+  percentUploadValue$: Observable<number | undefined>;
   visibledValidationMessage = false;
+  cancelOrRemoveIcon: string = 'close';
+  cancelOrRemoveLabel: string = 'Cancelar';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +46,8 @@ export class PhotoFormComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = (event: any) => (this.previewImage = event.target?.result);
     reader.readAsDataURL(this.file);
+    this.cancelOrRemoveIcon = 'trash';
+    this.cancelOrRemoveLabel = 'Remover Foto';
   }
 
   private removePhotoSelected(): void {
@@ -51,10 +55,12 @@ export class PhotoFormComponent implements OnInit {
     this.formGroup.patchValue({
       file: null,
     });
+    this.cancelOrRemoveIcon = 'close';
+    this.cancelOrRemoveLabel = 'Cancelar';
   }
 
   public upload(): void {
-    if(this.formGroup.invalid) {
+    if (this.formGroup.invalid) {
       this.visibledValidationMessage = true;
       return;
     }
@@ -67,7 +73,7 @@ export class PhotoFormComponent implements OnInit {
   }
 
   public cancelar(): void {
-    if(this.formGroup.controls['file'].value != null) {
+    if (this.formGroup.controls['file'].value != null) {
       this.removePhotoSelected();
     } else {
       this.routerService.navigate(['']);

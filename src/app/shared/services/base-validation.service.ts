@@ -7,7 +7,7 @@ export class BaseValidationService {
   public getValidatorErrorMessageDefault(propertyName: string): string | null {
     switch (propertyName) {
       case 'required': {
-        return 'Campo Obrigatório';
+        return 'Campo obrigatório';
       }
       case 'minlength': {
         return 'Campo possui menos caracteres do que o limite aceito';

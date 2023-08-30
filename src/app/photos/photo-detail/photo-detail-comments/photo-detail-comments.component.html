@@ -1,5 +1,5 @@
-<div *ngIf="comments$ | async as comments">
-  <ul class="list-unstyled comment-list">
+<ng-container *ngIf="comments">
+  <ul class="list-unstyled comment-list" [ngClass]="{'comment-list-min-size-2': comments.length > 1}">
     <li *ngFor="let comment of comments">
       <a class="text-dark font-weight-bold mr-1" [routerLink]="['/user', comment.userName]">
         {{ comment.userName }}
@@ -12,18 +12,23 @@
       </p>
     </li>
   </ul>
-  <div class="mt-4">
-    <form [formGroup]="formGroup" (submit)="save()">
-      <div class="input-group">
-        <textarea class="form-control" formControlName="comment"></textarea>
-      </div>
-      <enigma-vmessage [visible]="visibledValidationMessage" [control]="formGroup.controls['comment']">
-      </enigma-vmessage>
-      <div class=" pt-2 float-right">
-        <enigma-hover-button
-        [disabled]="formGroup.invalid"
-        ngButtonClass="primary pull-left" ngButtonType="submit" label="Comentar" fontAwesomeIcon="plus"></enigma-hover-button>
-      </div>
-    </form>
+</ng-container>
+<ng-container *ngIf="!comments">
+  <div class="text-center text-muted">
+    <p>Ainda não há comentários</p>
   </div>
-  <div>
+</ng-container>
+
+<div>
+  <form [formGroup]="formGroup" (submit)="save()">
+    <div class="input-group">
+      <textarea class="form-control" formControlName="comment"></textarea>
+    </div>
+    <enigma-vmessage [visible]="visibledValidationMessage" [control]="formGroup.controls['comment']">
+    </enigma-vmessage>
+    <div class=" pt-2 float-right">
+      <enigma-hover-button [disabled]="formGroup.invalid" ngButtonClass="primary pull-left" ngButtonType="submit"
+        label="Comentar" fontAwesomeIcon="plus"></enigma-hover-button>
+    </div>
+  </form>
+</div>

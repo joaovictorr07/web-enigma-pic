@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DefaultButtonModule } from 'src/app/shared/components/buttons/default-button/default-button.module';
 
 import { CardModule } from './../../shared/components/cards/card.module';
 import { DarkOnHoverModule } from './../../shared/directives/dark-on-hover/dark-on-hover.module';
@@ -25,6 +26,7 @@ import { filterByDescription } from './pipes/filter-by-description.pipe';
     CardModule,
     DarkOnHoverModule,
     RouterModule,
+    DefaultButtonModule
   ],
 })
 export class PhotoListModule {}
