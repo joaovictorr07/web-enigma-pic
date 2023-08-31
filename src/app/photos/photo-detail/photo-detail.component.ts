@@ -4,9 +4,11 @@ import { filter, Observable, Subscription, tap } from 'rxjs';
 
 import { PhotoModel } from '../photo/models/photo.model';
 import { PhotoService } from '../photo/services/photo.service';
+import { UserService } from 'src/app/core/user/user.service';
 
 @Component({
   templateUrl: './photo-detail.component.html',
+  styleUrls: ['./photo-detail.component.css']
 })
 export class PhotoDetailComponent implements OnInit, OnDestroy {
   photo$!: Observable<PhotoModel | undefined>;
@@ -15,7 +17,8 @@ export class PhotoDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private  userService: UserService
   ) {
     this.photo$ = this.photoService.getSelectedPhoto();
     this.initListners();
@@ -43,6 +46,7 @@ export class PhotoDetailComponent implements OnInit, OnDestroy {
   }
 
   public like(photo: PhotoModel): void {
+    if(this.userService.isLogged())
     this.photoService.like(photo);
   }
 

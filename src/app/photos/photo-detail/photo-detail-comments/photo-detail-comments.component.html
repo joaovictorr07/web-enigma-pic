@@ -19,7 +19,7 @@
   </div>
 </ng-container>
 
-<div>
+<div showIfLogged>
   <form [formGroup]="formGroup" (submit)="save()">
     <div class="input-group">
       <textarea class="form-control" formControlName="comment"></textarea>

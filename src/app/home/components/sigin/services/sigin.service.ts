@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpAuthService } from 'src/app/core/auth/http-auth.service';
+import { UserService } from 'src/app/core/user/user.service';
 import { LoadingService } from 'src/app/shared/components/loading/loading.service';
 import { ToastNotificationService } from 'src/app/shared/components/toast-notification/toast-notification.service';
 
@@ -15,7 +16,8 @@ export class SiginService {
     private route: Router,
     private messageService: ToastNotificationService,
     private activatedRoute: ActivatedRoute,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private userService: UserService
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.fromUrl = params['fromUrl'];
@@ -26,6 +28,7 @@ export class SiginService {
     this.authService.authenticate(userName, password).subscribe({
       complete: () => {
         this.messageService.sucessMessage('Login realizado com sucesso');
+        this.userService.setListUsers([]);
         if (this.fromUrl) {
           this.route.navigateByUrl(this.fromUrl);
         } else {

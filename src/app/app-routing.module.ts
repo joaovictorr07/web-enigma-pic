@@ -11,6 +11,7 @@ import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/components/photo-list/photo-list.component';
 import { PhotoListResolver } from './photos/photo-list/resolvers/photo-list.resolver';
 import { SearchUserComponent } from './user/search-user/search-user.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,12 @@ const routes: Routes = [
     data: {
       title: 'GngPic - Detalhe da foto',
     },
+  },
+
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
+    loadChildren: () => import('./about-us/about-us.module').then((m) => m.AboutUsModule)
   },
   {
     path: 'not-found',

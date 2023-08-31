@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Observable, Subscription, debounce, debounceTime, tap } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { debounceTime, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { UserModel } from 'src/app/core/user/user.model';
 import { UserService } from 'src/app/core/user/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'enigma-search-user',
@@ -25,40 +25,37 @@ export class SearchUserComponent implements OnDestroy {
 
   private buildFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      searchInput: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(20),
-        ],
-      ],
+      searchInput: [null],
     });
   }
 
   private initListner(): void {
-    this.subscription = this.listUsers$.pipe(
-      tap((users) => {
+    this.subscription = this.listUsers$
+      .pipe(
+        tap((users) => {
           this.listUsers = users;
-      })
-    ).subscribe();
+        })
+      )
+      .subscribe();
   }
 
   public search(): void {
-    this.formGroup.controls['searchInput'].valueChanges.pipe(
-      debounceTime(300)
-    ).subscribe(
-      (value) => {
-        if(value) {
-          this.userService.searchByUserName(value);
-        } else {
-          this.listUsers = [];
-        }
-      }
-    )
+    this.formGroup.controls['searchInput'].valueChanges
+      .pipe(
+        debounceTime(300),
+        switchMap((value) => {
+          if (value) {
+            this.userService.searchByUserName(value);
+          } else {
+            this.listUsers = [];
+          }
+          return [];
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

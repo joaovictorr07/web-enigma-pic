@@ -5,14 +5,17 @@
       GNGPIC</a>
     <enigma-menu #menu>
       <ul class="list-group">
-        <li showIfLogged class="list-group-item" [routerLink]="['/user', userLogged?.name]">
+        <li showIfLogged class="list-group-item" [routerLink]="['/user', userLogged?.name]" (click)="menu.toggle()">
           <a>Linha do tempo</a>
         </li>
-        <li class="list-group-item" [routerLink]="['/user/search']">
+        <li class="list-group-item" [routerLink]="['/user/search']" (click)="menu.toggle()">
           <a>Pesquisar</a>
         </li>
-        <li showIfLogged class="list-group-item" [routerLink]="['p', 'add']">
+        <li showIfLogged class="list-group-item" [routerLink]="['p', 'add']" (click)="menu.toggle()">
           <a>Upload</a>
+        </li>
+        <li class="list-group-item" [routerLink]="['/about-us']" (click)="menu.toggle()">
+          <a>Sobre nós</a>
         </li>
       </ul>
     </enigma-menu>

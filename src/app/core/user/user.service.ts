@@ -24,6 +24,10 @@ export class UserService {
     this.decodeAndNotify();
   }
 
+  public setListUsers(listUser: UserModel[]): void {
+    this.listUsersSubject.next(listUser);
+  }
+
   private decodeAndNotify(): void {
     const token = this.tokenService.getToken();
     const user = jwtDecode(token ?? '') as UserModel;
@@ -34,12 +38,13 @@ export class UserService {
   public logout(): void {
     this.tokenService.removeToken();
     this.userSubject.next(null);
+    this.listUsersSubject.next([]);
   }
 
   public searchByUserName(userName: string): void {
     this.httpUserService.searchByUserName(userName)
     .pipe(map((listUser) => {
-      this.listUsersSubject.next(listUser);
+      this.setListUsers(listUser);
     }))  .subscribe({
       error: (_err) => {
 

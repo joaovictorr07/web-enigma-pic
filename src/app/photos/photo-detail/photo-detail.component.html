@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container photo-detail">
   <div class="row" *ngIf="selectedPhoto">
     <div class="col-lg-8">
       <enigma-photo [url]="selectedPhoto.url" [description]="selectedPhoto.description"></enigma-photo>
@@ -7,10 +7,10 @@
     <div class="col-lg-4">
       <small>
         <p class="text-left break-word">{{selectedPhoto.description}}</p>
-        <div class="text-left mb-4">
-          <i (click)="like(selectedPhoto)" class="fa fa-heart-o fa-2x mr-2 pull-left" showIfLogged></i>
-          {{ selectedPhoto.likes }}
-          <i class="fa fa-comment-o fa-2x mr-2 ml-2"></i>{{ selectedPhoto.comments }}
+        <div class="text-left mb-2">
+          <i (click)="like(selectedPhoto)" class="fa fa-heart-o fa-2x mr-2 pull-left"></i>
+          <label>{{ selectedPhoto.likes }}</label>
+          <i class="fa fa-comment-o fa-2x mr-2 ml-2"></i><label>{{ selectedPhoto.comments }}</label>
           <i photoOwnerOnly [ownedPhoto]="selectedPhoto" (click)="removePhoto()"
             class="fa fa-trash-o fa-2x pull-right"></i>
         </div>
