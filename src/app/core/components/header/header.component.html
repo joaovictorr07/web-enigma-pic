@@ -1,12 +1,15 @@
 <header class="fixed-top">
   <nav class="navbar navbar-light bg-white">
     <a class="navbar-brand gng-header">
-      <i showIfLogged tabindex="0" (keyup.space)="menu.toggle()" (click)="menu.toggle()" class="fa fa-bars mr-2"></i>
+      <i tabindex="0" (keyup.space)="menu.toggle()" (click)="menu.toggle()" class="fa fa-bars mr-2"></i>
       GNGPIC</a>
     <enigma-menu #menu>
       <ul class="list-group">
         <li showIfLogged class="list-group-item" [routerLink]="['/user', userLogged?.name]">
           <a>Linha do tempo</a>
+        </li>
+        <li class="list-group-item" [routerLink]="['/user/search']">
+          <a>Pesquisar</a>
         </li>
         <li showIfLogged class="list-group-item" [routerLink]="['p', 'add']">
           <a>Upload</a>

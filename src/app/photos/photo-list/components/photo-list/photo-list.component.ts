@@ -32,6 +32,9 @@ export class PhotoListComponent implements OnInit, OnDestroy {
         this.userName = params['userName'];
         this.photos = [];
         this.photos = this.activatedRoute.snapshot.data['photos'];
+        if(this.photos.length == 0){
+          this.photoService.setHasMorePhotosInUser(false);
+        }
       }
     );
     let listPhotosPaginatedSubscription = this.photoService

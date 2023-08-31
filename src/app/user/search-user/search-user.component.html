@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="text-center mt-3 mb-3">
+        <form [formGroup]="formGroup">
+          <i aria-hidden="true" class="fa fa-search mr-1"></i>
+          <input class="rounded" type="search" placeholder="Pesquisar" formControlName="searchInput"
+            (keyup)="search()">
+        </form>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <ng-container *ngIf="listUsers.length > 0">
+        <ul class="list-group search-list">
+          <li class="list-group-item d-flex align-items-center search-list-item"  [ngClass]="{'search-list-min-size-2': listUsers.length > 1}" *ngFor="let user of listUsers"
+            [routerLink]="['/user', user.name]">
+            <i class="fa fa-user-circle fa-2x mr-2"></i>
+            <a class="text-dark font-weight-bold mr-1">
+              {{ user.name }}
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="listUsers.length == 0">
+        <div class="text-center text-muted">
+          <p>Não encontrou nenhum usuário</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

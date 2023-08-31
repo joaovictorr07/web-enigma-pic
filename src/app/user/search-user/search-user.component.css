@@ -1,0 +1,9 @@
+.search-list {
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.search-list-item:hover {
+  filter: brightness(90%);
+  cursor: pointer;
+}

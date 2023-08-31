@@ -10,6 +10,7 @@ import { PhotoDetailComponent } from './photos/photo-detail/photo-detail.compone
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/components/photo-list/photo-list.component';
 import { PhotoListResolver } from './photos/photo-list/resolvers/photo-list.resolver';
+import { SearchUserComponent } from './user/search-user/search-user.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,12 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [LoginGuard],
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+
+  {
+    path: 'user/search',
+    component: SearchUserComponent,
+    loadChildren: () => import('./user/search-user/search-user.module').then((m) => m.SearchUserModule)
   },
 
   {
